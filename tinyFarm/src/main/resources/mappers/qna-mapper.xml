@@ -32,20 +32,28 @@
   	
   	
   	<!-- 관리자 - QNA 개수 -->
-  	<select id="qnaListCount" resultType="_int">
+	<select id="qnaListCount" resultType="_int">
   		SELECT COUNT(*)
 		FROM QNA LEFT JOIN QNA_ANSWER USING(QNA_NO)
+		WHERE 1=1
 		<if test="showPeriod == 7">
 			WHERE QNA_CREATEDATE >= SYSDATE - 7
+			AND QNA_CREATEDATE >= SYSDATE - 7
 		</if>
 		<if test="showPeriod == 30">
 			WHERE QNA_CREATEDATE >= SYSDATE - 30
+			AND QNA_CREATEDATE >= SYSDATE - 30
 		</if>
 		<if test="answerYn == 0">
 			WHERE QNA_ANSWER_CREATEDATE IS NULL
+			AND QNA_ANSWER_CREATEDATE IS NULL
 		</if>
 		<if test="answerYn == 1">
 			WHERE QNA_ANSWER_CREATEDATE IS NOT NULL
+			AND QNA_ANSWER_CREATEDATE IS NOT NULL
+		</if>
+		<if test="userNo neq null and userNo != '' and userNo != 1">
+			AND USER_NO = #{userNo}
 		</if>
   	</select>
   	
