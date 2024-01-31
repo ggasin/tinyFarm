@@ -196,11 +196,11 @@ public class AdminController {
 	
 	//QNA 목록
 	@GetMapping("/qnaList.ad")
-	public String selectQnaList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="answerYn", defaultValue="2") int answerYn, Model model) {
+	public String selectQnaList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="answerYn", defaultValue="2") int answerYn, Model model, HttpSession session) {
 		
 		HashMap<String, Integer> qMap = new HashMap<String, Integer>();
 		qMap.put("answerYn", answerYn);
-		
+		qMap.put("userNo", ((Member)session.getAttribute("loginUser")).getUserNo());
 		
 		// 전체 게시글 개수(listCount) - selectListCount() 메소드 명
 		int qnaListCount = qnaService.qnaListCount(qMap);
